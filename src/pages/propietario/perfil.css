@@ -1,0 +1,203 @@
+/* Fondo degradado similar a otras páginas */
+.perfil-bg {
+  min-height: 100vh;
+  padding: 2rem 1rem 6rem 1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Contenedor principal */
+.perfil-container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  color: #333;
+}
+
+/* Tarjeta de Perfil */
+.perfil-card {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.perfil-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.perfil-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #667eea;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.perfil-role {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Pestañas */
+.perfil-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.perfil-tabs button {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.perfil-tabs .active {
+  font-weight: bold;
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+}
+
+/* Contenido de las Secciones */
+.perfil-content {
+  padding: 1rem;
+}
+
+.perfil-section h3 {
+  color: #667eea;
+  margin-top: 0;
+}
+
+/* Formularios */
+.perfil-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.perfil-section input[type="text"],
+.perfil-section input[type="email"],
+.perfil-section input[type="password"],
+.perfil-section select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+/* Botones */
+.btn-save,
+.btn-danger,
+.btn-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 0.5rem;
+}
+
+.btn-save {
+  background: #28a745;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #218838;
+}
+
+.btn-danger {
+  background: #d32f2f;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b71c1c;
+}
+
+.btn-secure {
+  background: #667eea;
+  color: white;
+}
+
+.btn-secure:hover {
+  background: #5a67d8;
+}
+
+/* Lista de Caballos */
+.caballos-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.caballo-item {
+  background: #f1f1f1;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+/* Seguridad adicional */
+.seguridad-config,
+.seguridad-2fa,
+.seguridad-logout {
+  margin-bottom: 1rem;
+}
+
+/* Media queries para móviles */
+@media (max-width: 768px) {
+  .perfil-bg {
+    padding: 1rem 0.5rem 4rem 0.5rem;
+  }
+  .perfil-container {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+  .perfil-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  .perfil-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  .perfil-tabs button {
+    padding: 8px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+  }
+  .perfil-content {
+    padding: 0.5rem;
+  }
+  .perfil-section label {
+    font-size: 0.8rem;
+  }
+  .btn-save,
+  .btn-danger,
+  .btn-secure {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+}

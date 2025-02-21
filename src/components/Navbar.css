@@ -1,0 +1,108 @@
+/* Navbar contenedor */
+.navbar {
+  background-color: #1f2937; /* Gris oscuro */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  position: relative;
+  z-index: 2000; /* Asegura que la navbar siempre esté arriba */
+}
+
+/* Perfil link a la izquierda */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.perfil-link {
+  color: #fff;
+  background-color: #667eea;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-link:hover {
+  background-color: #5a67d8;
+}
+
+/* Icono de hamburguesa en móvil */
+.hamburger-icon {
+  display: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 3000; /* Asegura que quede por encima */
+}
+
+/* Menú principal */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos de los ítems */
+.navbar-item a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+
+.navbar-item a:hover {
+  background-color: #667eea;
+}
+
+.navbar-item.active a {
+  background-color: #667eea;
+}
+
+/* Espacio a la derecha (opcional) */
+.navbar-right {
+  width: 50px;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 768px) {
+  /* Mostramos el icono hamburguesa */
+  .hamburger-icon {
+    display: block;
+  }
+
+  /* Ocultamos el menú horizontal y lo hacemos visible con `.open` */
+  .navbar-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #1f2937;
+    flex-direction: column;
+    text-align: center;
+    max-height: 0; /* 🔥 Oculto inicialmente */
+    overflow: hidden; /* 🔥 Evita que se vea contenido al cerrar */
+    transition: max-height 0.3s ease-out;
+    z-index: 3000; /* 🔥 Asegura que esté por encima */
+  }
+
+  .navbar-menu.open {
+    max-height: 500px; /* 🔥 Se expande para mostrar el menú */
+  }
+
+  .navbar-item a {
+    display: block;
+    padding: 1rem;
+    border-radius: 0;
+    font-size: 1rem;
+  }
+
+  .navbar-right {
+    display: none;
+  }
+}

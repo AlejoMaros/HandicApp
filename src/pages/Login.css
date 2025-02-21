@@ -1,0 +1,161 @@
+/* ----- RESET & FONT ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f7fafc; /* Gris muy claro */
+  height: 100%;
+}
+
+/* Contenedor principal */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(135deg, #ece9f6, #ffffff);
+}
+
+/* Sección hero (solo la ola), más alta para dejar espacio */
+.login-hero {
+  width: 100%;
+  height: 250px; /* Ajustar más si quieres */
+  background: #667eea; /* fallback color */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Contenedor wave */
+.wave-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.wave-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Logo centrado, bastante abajo */
+.logo-section {
+  margin-top: -40px; /* si quieres más espacio, reduce el valor negativo */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Tamaño grande del logo */
+.app-logo {
+  width: 180px; /* Logo más grande */
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #fff;
+  padding: 0.5rem;
+}
+
+/* Tarjeta de login */
+.login-card {
+  background: #fff;
+  width: 90%;
+  max-width: 380px;
+  margin-top: 60px; /* para bajarlo con respecto al logo */
+  margin-bottom: 60px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+/* Título */
+.login-title {
+  font-size: 1.5rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Campos del form */
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.form-group label {
+  color: #4a5568;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+.form-group input:focus {
+  border-color: #667eea;
+}
+
+/* Botón login */
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #667eea;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+.login-button:hover {
+  background-color: #5a67d8;
+}
+
+/* Error */
+.error-message {
+  margin-top: 0.5rem;
+  color: #e53e3e;
+  font-size: 0.9rem;
+}
+
+/* ----- Media Queries para dispositivos móviles ----- */
+@media (max-width: 600px) {
+  .login-hero {
+    height: 150px; /* Reduce la altura para pantallas pequeñas */
+  }
+  .app-logo {
+    width: 120px; /* Ajusta el tamaño del logo para pantallas móviles */
+    margin: 0 auto;
+    display: block;
+  }
+  .login-card {
+    width: 95%; /* Aprovecha más el ancho disponible */
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 1.5rem 1rem; /* Reduce el padding en pantallas pequeñas */
+  }
+  .login-title {
+    font-size: 1.3rem;
+  }
+  .form-group input {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+  .login-button {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+}

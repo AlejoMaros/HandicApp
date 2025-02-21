@@ -1,0 +1,160 @@
+/* Contenedor principal para el propietario */
+.inicio-propietario {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitulo {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+  max-width: 800px;
+  text-align: center;
+}
+
+/* Layout principal en grid */
+.inicio-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Columnas */
+.col-izquierda,
+.col-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tarjetas */
+.tarjeta {
+  background: #fff;
+  color: #333;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.tarjeta:hover {
+  transform: scale(1.02);
+}
+
+.tarjeta h2 {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+/* Resumen Financiero e Indicadores */
+.resumen-financiero ul,
+.indicadores ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resumen-financiero li,
+.indicadores li {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+/* Gráfica */
+.grafica {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Accesos Rápidos */
+.accesos-rapidos .botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.accesos-rapidos button {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+}
+
+.accesos-rapidos button:hover {
+  background: #5a67d8;
+}
+
+/* Últimas Notificaciones */
+.ultimas-notificaciones .lista-notificaciones {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ultimas-notificaciones .lista-notificaciones li {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+.ultimas-notificaciones .lista-notificaciones .mensaje {
+  font-weight: bold;
+}
+
+.ultimas-notificaciones .lista-notificaciones .fecha {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+/* Media queries para móviles */
+@media (max-width: 768px) {
+  .inicio-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+  }
+  .titulo {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+  .col-izquierda,
+  .col-derecha {
+    gap: 1rem;
+  }
+  .tarjeta {
+    padding: 1rem;
+  }
+}

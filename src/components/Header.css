@@ -1,0 +1,87 @@
+/* src/components/Header.css */
+
+/* Contenedor principal del header */
+.header {
+  background-color: #1f2937; /* Fondo oscuro */
+  border-bottom: 1px solid #374151;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Nombre de la app */
+.header-brand h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #f3f4f6; /* Texto claro */
+  font-weight: 700;
+}
+
+/* Acciones (bienvenida + botón) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+  font-size: 1rem;
+  color: #d1d5db;
+}
+
+/* Botón de logout */
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 9999px; /* Forma de píldora */
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #4f46e5; /* un púrpura más vivo */
+  border-color: #4f46e5;
+  color: #f3f4f6;
+}
+
+/* Icono de logout */
+.icon-logout {
+  width: 18px;
+  height: 18px;
+}
+
+/* ----- Media Queries para dispositivos móviles ----- */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+  }
+  .header-brand h1 {
+    font-size: 1.5rem;
+  }
+  .header-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .welcome-text {
+    font-size: 0.9rem;
+  }
+  .logout-button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+  }
+  .icon-logout {
+    width: 16px;
+    height: 16px;
+  }
+}

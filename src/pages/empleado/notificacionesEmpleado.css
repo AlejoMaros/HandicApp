@@ -1,0 +1,151 @@
+/* Fondo degradado y contenedor */
+.notificaciones-bg {
+    min-height: 100vh;
+    padding: 2rem 1rem 6rem 1rem; /* extra bottom space for footer if needed */
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .notificaciones-container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título principal */
+  .titulo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #1f2937;
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .subtitulo {
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Barra de filtro */
+  .filtro-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filtro-bar button {
+    border: none;
+    background-color: #e2e8f0;
+    color: #333;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .filtro-bar button:hover {
+    background-color: #667eea;
+    color: #fff;
+  }
+  
+  .filtro-bar .active {
+    background-color: #667eea;
+    color: #fff;
+  }
+  
+  /* Lista de notificaciones */
+  .lista-notificaciones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .notif-item {
+    background-color: #f3f4f6;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notif-item.leida {
+    opacity: 0.8;
+  }
+  
+  .notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .notif-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1f2937;
+  }
+  
+  .notif-date {
+    font-size: 0.8rem;
+    color: #4b5563;
+  }
+  
+  .notif-description {
+    margin: 0.5rem 0;
+    color: #4b5563;
+    font-size: 0.9rem;
+  }
+  
+  /* Botones de acción */
+  .notif-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .btn-leer,
+  .btn-eliminar {
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+  }
+  
+  .btn-leer {
+    background-color: #667eea;
+    color: #fff;
+  }
+  
+  .btn-leer:hover {
+    background-color: #5a67d8;
+  }
+  
+  .btn-eliminar {
+    background-color: #e53e3e;
+    color: #fff;
+  }
+  
+  .btn-eliminar:hover {
+    background-color: #c53030;
+  }
+  
+  .sin-notificaciones {
+    margin-top: 2rem;
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+  

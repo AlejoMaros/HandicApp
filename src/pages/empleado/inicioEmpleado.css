@@ -1,0 +1,223 @@
+/* Eliminamos estilos globales en body, lo maneja la app principal */
+.inicio-empleado {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Para centrar contenido en horizontal si queremos un max-width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitulo {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Contenedor principal en layout de 2 columnas */
+.inicio-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Col izq un poco más ancha */
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px; /* Ajusta a tu gusto */
+}
+
+/* Columna Izquierda */
+.col-izquierda,
+.col-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tarjetas */
+.tarjeta {
+  background: #fff;
+  color: #333;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.tarjeta:hover {
+  transform: scale(1.02);
+}
+
+.tarjeta h2 {
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+/* Actividades pendientes */
+.resumen ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resumen ul li {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 10px;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+/* Estadísticas con mini-gráfica */
+.dashboard .estadisticas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.dashboard .dato {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  width: 30%;
+  min-width: 120px;
+}
+
+.dashboard .dato p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard .dato span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+/* Contenedor para la gráfica */
+.dashboard .grafica {
+  width: 100%;
+  /* Para cuando la pantalla es pequeña, que no se desborde */
+  overflow-x: auto;
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+/* Accesos rápidos */
+.accesos-rapidos .botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.accesos-rapidos button {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+}
+
+.accesos-rapidos button:hover {
+  background: #5a67d8;
+}
+
+/* Últimos gastos */
+.ultimos-gastos .lista-gastos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ultimos-gastos .lista-gastos li {
+  background: #f3f4f6;
+  color: #1f2937;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.ultimos-gastos .lista-gastos .categoria {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.ultimos-gastos .lista-gastos .fecha {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.ultimos-gastos .lista-gastos .monto {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+/* Notificaciones (demo) */
+.notificaciones p {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+/* ----- Media Queries para dispositivos móviles ----- */
+@media (max-width: 768px) {
+  /* Convertir el layout de 2 columnas en 1 columna */
+  .inicio-layout {
+    grid-template-columns: 1fr;
+  }
+  .titulo {
+    font-size: 1.5rem;
+  }
+  .subtitulo {
+    font-size: 1rem;
+  }
+  .tarjeta {
+    padding: 1rem;
+  }
+  /* Ajustar la sección de estadísticas para columna única */
+  .dashboard .estadisticas-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .dashboard .dato {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  /* Botones en accesos rápidos se apilan verticalmente */
+  .accesos-rapidos .botones {
+    flex-direction: column;
+  }
+  .accesos-rapidos button {
+    width: 100%;
+    justify-content: center;
+  }
+}

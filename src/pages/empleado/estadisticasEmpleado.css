@@ -1,0 +1,75 @@
+/* Fondo gris claro / degrade si deseas */
+.estadisticas-empleado-bg {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea, #764ba2); /* ejemplo degrade */
+    display: flex;
+    justify-content: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  .estadisticas-empleado-container {
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  .titulo {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+  
+  .subtitulo {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Tarjeta con métricas */
+  .tarjeta-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .metric {
+    flex: 1;
+    min-width: 200px;
+    background: #f3f4f6;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .metric h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #4b5563;
+  }
+  .metric p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+    margin: 0.5rem 0 0;
+  }
+  
+  /* Tarjeta de la gráfica */
+  .tarjeta-grafica {
+    background: #f3f4f6;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .tarjeta-grafica h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #4b5563;
+    font-size: 1rem;
+  }
+  
