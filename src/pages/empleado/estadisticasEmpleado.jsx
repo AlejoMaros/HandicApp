@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import "./EstadisticasEmpleado.css";
+import "./estadisticasEmpleado.css";
 
 // Registrar componentes de Chart.js:
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
