@@ -1,151 +1,294 @@
-/* Fondo degradado y contenedor */
-.notificaciones-bg {
-    min-height: 100vh;
-    padding: 2rem 1rem 6rem 1rem; /* extra bottom space for footer if needed */
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    justify-content: center;
+/* Fondo general */
+.notif-bg {
+  padding: 1rem;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+.notif-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Encabezado */
+.notif-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.notif-title {
+  font-size: 1.8rem;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+
+.notif-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0.5rem auto 1.5rem;
+  max-width: 600px;
+}
+
+/* Filtros extra */
+.extra-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 450px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #fff;
+  transition: box-shadow 0.3s;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 2px #667eea;
+  outline: none;
+}
+
+.category-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+/* Sección superior: botones y filtros rápidos */
+.top-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mark-all-btn {
+  background-color: #38a169;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.mark-all-btn:hover {
+  background-color: #2f855a;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-buttons button {
+  background: #e2e8f0;
+  color: #333;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.filter-buttons button:hover,
+.filter-buttons button.active {
+  background: #667eea;
+  color: #fff;
+}
+
+/* Lista de notificaciones */
+.notif-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notif-card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s, opacity 0.3s;
+}
+
+.notif-card:hover {
+  transform: translateX(3px);
+}
+
+.notif-card.read {
+  opacity: 0.8;
+}
+
+/* Encabezado de cada tarjeta */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.card-header span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Descripción */
+.card-desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+/* Acciones de notificación */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.card-actions button {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: background 0.3s;
+}
+
+/* Botones de acción con colores diferenciados */
+.btn-read {
+  background-color: #38a169;
+  color: #fff;
+}
+.btn-read:hover {
+  background-color: #2f855a;
+}
+
+.btn-archive {
+  background-color: #718096;
+  color: #fff;
+}
+.btn-archive:hover {
+  background-color: #4a5568;
+}
+
+.btn-delete {
+  background-color: #e53e3e;
+  color: #fff;
+}
+.btn-delete:hover {
+  background-color: #c53030;
+}
+
+/* Botones de paginación */
+.load-more-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.load-more-btn {
+  background-color: #667eea;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.load-more-btn:hover {
+  background-color: #5a67d8;
+}
+
+/* Mensaje vacío */
+.empty-msg {
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .notif-container {
+    padding: 0.5rem;
+  }
+  .card-header {
+    flex-direction: column;
     align-items: flex-start;
-    font-family: "Roboto", sans-serif;
+    gap: 0.3rem;
+  }
+  /* En móvil, se organiza la sección de acciones en 2 columnas */
+  @media (max-width: 600px) {
+    .card-actions {
+      display: flex;        /* Fila */
+      flex-wrap: nowrap;    /* No salten de línea */
+      gap: 0.3rem;          /* Menor espacio entre botones */
+      white-space: nowrap;  /* No partir el texto */
+      overflow-x: auto;     /* Scroll horizontal si no caben */
+    }
+  
+    .card-actions button {
+      flex: 0 0 auto;       /* Ajusta el ancho al contenido */
+      width: auto;          /* Evita ocupar 100% */
+      padding: 0.3rem 0.6rem;  /* Botones algo más compactos */
+    }
   }
   
-  .notificaciones-container {
-    max-width: 800px;
+  .top-buttons,
+  .extra-filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mark-all-btn,
+  .filter-buttons,
+  .search-container,
+  .category-select {
     width: 100%;
-    background-color: #fff;
-    color: #333;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Título principal */
-  .titulo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #1f2937;
-    font-size: 1.8rem;
-    margin: 0 0 0.5rem 0;
-  }
-  
-  .subtitulo {
-    color: #4b5563;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-  }
-  
-  /* Barra de filtro */
-  .filtro-bar {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .filtro-bar button {
-    border: none;
-    background-color: #e2e8f0;
-    color: #333;
-    padding: 0.5rem 0.75rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .filtro-bar button:hover {
-    background-color: #667eea;
-    color: #fff;
-  }
-  
-  .filtro-bar .active {
-    background-color: #667eea;
-    color: #fff;
-  }
-  
-  /* Lista de notificaciones */
-  .lista-notificaciones {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .notif-item {
-    background-color: #f3f4f6;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    position: relative;
-    transition: background-color 0.3s ease;
-  }
-  
-  .notif-item.leida {
-    opacity: 0.8;
-  }
-  
-  .notif-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .notif-title {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #1f2937;
-  }
-  
-  .notif-date {
-    font-size: 0.8rem;
-    color: #4b5563;
-  }
-  
-  .notif-description {
-    margin: 0.5rem 0;
-    color: #4b5563;
-    font-size: 0.9rem;
-  }
-  
-  /* Botones de acción */
-  .notif-actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-  
-  .btn-leer,
-  .btn-eliminar {
-    border: none;
-    cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.85rem;
-  }
-  
-  .btn-leer {
-    background-color: #667eea;
-    color: #fff;
-  }
-  
-  .btn-leer:hover {
-    background-color: #5a67d8;
-  }
-  
-  .btn-eliminar {
-    background-color: #e53e3e;
-    color: #fff;
-  }
-  
-  .btn-eliminar:hover {
-    background-color: #c53030;
-  }
-  
-  .sin-notificaciones {
-    margin-top: 2rem;
-    text-align: center;
-    color: #4b5563;
-    font-size: 0.95rem;
-  }
-  
+}

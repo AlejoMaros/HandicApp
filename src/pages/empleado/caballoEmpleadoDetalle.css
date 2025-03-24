@@ -1,0 +1,129 @@
+/* Contenedor principal */
+.caballo-detalle-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Encabezado */
+.detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.btn-back {
+  background: #ccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-back:hover {
+  background: #bbb;
+}
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.header-info h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.etiqueta-estado {
+  background: #e2e8f0;
+  color: #333;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Sección principal: Imagen y datos básicos */
+.caballo-main {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.caballo-imagen img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.caballo-basicos {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.6rem;
+}
+.caballo-basicos .info-item {
+  font-size: 1rem;
+  color: #333;
+}
+.btn-exportar {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-exportar:hover {
+  background: #5a67d8;
+}
+
+/* Sección de Pedigree */
+.caballo-pedigree {
+  margin-bottom: 2rem;
+}
+.caballo-pedigree h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+.pedigree-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+}
+.pedigree-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pedigree-label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+/* Sección inferior: Notas y Datos completos */
+.detalle-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.detalle-notas,
+.detalle-datos {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+}
+.detalle-notas h3,
+.detalle-datos h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.detalle-datos p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}

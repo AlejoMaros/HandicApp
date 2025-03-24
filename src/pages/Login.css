@@ -1,161 +1,234 @@
-/* ----- RESET & FONT ----- */
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body, html {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f7fafc; /* Gris muy claro */
+
+/* 🔥 Asegurar que el login ocupe el 100% de la pantalla */
+.login-container {
+  display: flex;
+  flex-direction: row; /* En escritorio en fila */
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden; /* Evita márgenes extra */
+  background:#fff;
+}
+
+/* Sección izquierda (branding) */
+.left-section {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F2DCAC, #f8e8cc);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+/* Onda separadora */
+.wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.wave {
+  width: 100%;
   height: 100%;
 }
 
-/* Contenedor principal */
-.login-page {
-  min-height: 100vh;
+.wave path {
+  fill: #fff;
+  opacity: 0.3;
+}
+
+/* Contenido de la izquierda */
+.left-content {
+  position: relative;
+  text-align: center;
+  max-width: 300px;
+  
+}
+
+.logo {
+  width: 250px;
+}
+
+.left-content h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.left-content p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Sección derecha (formulario) */
+.right-section {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Tarjeta del formulario */
+.form-wrapper {
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.3); /* Fondo semi-transparente */
+  backdrop-filter: blur(10px); /* Efecto difuminado */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+/* Títulos y subtítulos */
+.title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario e inputs */
+.login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  background: linear-gradient(135deg, #ece9f6, #ffffff);
 }
 
-/* Sección hero (solo la ola), más alta para dejar espacio */
-.login-hero {
+.login-form input {
   width: 100%;
-  height: 250px; /* Ajustar más si quieres */
-  background: #667eea; /* fallback color */
-  position: relative;
-  overflow: hidden;
-}
-
-/* Contenedor wave */
-.wave-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.wave-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Logo centrado, bastante abajo */
-.logo-section {
-  margin-top: -40px; /* si quieres más espacio, reduce el valor negativo */
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Tamaño grande del logo */
-.app-logo {
-  width: 180px; /* Logo más grande */
-  height: auto;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  background: #fff;
-  padding: 0.5rem;
-}
-
-/* Tarjeta de login */
-.login-card {
-  background: #fff;
-  width: 90%;
-  max-width: 380px;
-  margin-top: 60px; /* para bajarlo con respecto al logo */
-  margin-bottom: 60px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  padding: 2rem 1.5rem;
-  text-align: center;
-}
-
-/* Título */
-.login-title {
-  font-size: 1.5rem;
-  color: #2d3748;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-/* Campos del form */
-.form-group {
   margin-bottom: 1rem;
-  text-align: left;
-}
-.form-group label {
-  color: #4a5568;
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-  display: block;
-}
-.form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border 0.3s ease;
-}
-.form-group input:focus {
-  border-color: #667eea;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: #333;
 }
 
-/* Botón login */
+.login-form input:focus {
+  outline: none;
+  border-color: #cfa15b;
+  box-shadow: 0 0 5px rgba(207, 161, 91, 0.4);
+}
+
+/* Enlace de contraseña */
+.forgot-password {
+  align-self: flex-end;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: #777;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #cfa15b;
+}
+
+/* Botón principal */
 .login-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #667eea;
-  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #3C2012, #3C2012);
+  color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 0.5rem;
-}
-.login-button:hover {
-  background-color: #5a67d8;
 }
 
-/* Error */
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Mensaje de error */
 .error-message {
-  margin-top: 0.5rem;
   color: #e53e3e;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
 }
 
-/* ----- Media Queries para dispositivos móviles ----- */
-@media (max-width: 600px) {
-  .login-hero {
-    height: 150px; /* Reduce la altura para pantallas pequeñas */
+/* Link de registro */
+.signup {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.signup a {
+  color: #cfa15b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+
+/* 🔥 RESPONSIVO: Celular */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* 🔥 Se apilan en móvil */
   }
-  .app-logo {
-    width: 120px; /* Ajusta el tamaño del logo para pantallas móviles */
-    margin: 0 auto;
-    display: block;
+
+  .left-section {
+    width: 100%;
+    height: 40vh; /* 🔥 Branding ocupa 40% */
+    border-radius: 0 0 50px 50px;
   }
-  .login-card {
-    width: 95%; /* Aprovecha más el ancho disponible */
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding: 1.5rem 1rem; /* Reduce el padding en pantallas pequeñas */
+
+  .wave-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: 40vh;
   }
-  .login-title {
-    font-size: 1.3rem;
+
+  .wave {
+    width: 100%;
+    height: 100%;
+    transform: rotate(0deg);
   }
-  .form-group input {
-    padding: 0.65rem;
-    font-size: 0.9rem;
+
+  .left-content {
+    text-align: center;
+    max-width: 80%;
   }
-  .login-button {
-    padding: 0.65rem;
-    font-size: 0.9rem;
+
+  .right-section {
+    width: 100%;
+    height: 60vh; /* 🔥 El formulario ocupa 60% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .form-wrapper {
+    width: 90%;
+    max-width: 350px;
+    padding: 1.5rem;
   }
 }

@@ -1,15 +1,15 @@
-/* Fondo degradado similar a otras páginas */
+/* ===== 1. Fondo general ===== */
 .perfil-bg {
   min-height: 100vh;
   padding: 2rem 1rem 6rem 1rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #f2f2f2 0%, #d9d9d9 100%);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-/* Contenedor principal */
+/* ===== 2. Contenedor principal ===== */
 .perfil-container {
   max-width: 700px;
   width: 100%;
@@ -20,7 +20,7 @@
   color: #333;
 }
 
-/* Tarjeta de Perfil */
+/* ===== 3. Tarjeta de Perfil ===== */
 .perfil-card {
   text-align: center;
   margin-bottom: 1rem;
@@ -32,13 +32,34 @@
   align-items: center;
 }
 
+/* Avatar cuadrado */
 .perfil-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  border: 3px solid #667eea;
+  border-radius: 0px; /* Cuadrado en lugar de redondo */
+  border: 3px solid #444; /* Gris oscuro */
   margin-bottom: 10px;
   object-fit: cover;
+}
+
+/* Estilo para el input de carga de imagen */
+.input-file {
+  display: none;
+}
+
+.label-file {
+  cursor: pointer;
+  display: inline-block;
+  background: #444;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.label-file:hover {
+  background: #333;
 }
 
 .perfil-role {
@@ -46,7 +67,7 @@
   color: #555;
 }
 
-/* Pestañas */
+/* ===== 4. Pestañas ===== */
 .perfil-tabs {
   display: flex;
   justify-content: space-around;
@@ -60,31 +81,32 @@
   padding: 10px;
   cursor: pointer;
   font-size: 1rem;
-  transition: color 0.3s;
+  transition: color 0.3s, border-bottom 0.3s;
   position: relative;
+  color: #555;
 }
 
 .perfil-tabs .active {
   font-weight: bold;
-  color: #667eea;
-  border-bottom: 2px solid #667eea;
+  color: #444; /* Gris oscuro */
+  border-bottom: 2px solid #444;
 }
 
-/* Contenido de las Secciones */
+/* ===== 5. Contenido ===== */
 .perfil-content {
   padding: 1rem;
 }
 
 .perfil-section h3 {
-  color: #667eea;
+  color: #444; /* Gris oscuro */
   margin-top: 0;
 }
 
-/* Formularios */
+/* ===== 6. Formularios ===== */
 .perfil-section label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #4b5563;
+  color: #555; /* Gris medio */
   font-size: 0.9rem;
 }
 
@@ -98,9 +120,11 @@
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 0.9rem;
+  background: #f3f4f6; /* Gris claro */
+  color: #333;
 }
 
-/* Botones */
+/* ===== 7. Botones ===== */
 .btn-save,
 .btn-danger,
 .btn-secure {
@@ -117,17 +141,16 @@
 }
 
 .btn-save {
-  background: #28a745;
+  background: #444; /* Gris oscuro */
   color: white;
 }
 
 .btn-save:hover {
-  background: #218838;
+  background: #333; /* Más oscuro en hover */
 }
 
 .btn-danger {
   background: #d32f2f;
-  color: white;
 }
 
 .btn-danger:hover {
@@ -135,65 +158,61 @@
 }
 
 .btn-secure {
-  background: #667eea;
-  color: white;
+  background: #444; /* Gris oscuro */
 }
 
 .btn-secure:hover {
-  background: #5a67d8;
+  background: #333; /* Más oscuro en hover */
 }
 
-/* Lista de Caballos */
-.caballos-lista {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
+/* ===== 8. Lista de Caballos ===== */
 .caballo-item {
-  background: #f1f1f1;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  font-size: 0.9rem;
+  background: #f3f4f6; /* Gris claro */
 }
 
-/* Seguridad adicional */
+/* ===== 9. Seguridad ===== */
 .seguridad-config,
 .seguridad-2fa,
 .seguridad-logout {
   margin-bottom: 1rem;
 }
 
-/* Media queries para móviles */
+/* ===== 10. Responsive ===== */
 @media (max-width: 768px) {
   .perfil-bg {
     padding: 1rem 0.5rem 4rem 0.5rem;
   }
+
   .perfil-container {
     padding: 1rem;
     margin: 0 1rem;
   }
+
   .perfil-avatar {
     width: 100px;
     height: 100px;
   }
+
   .perfil-tabs {
     flex-direction: column;
     align-items: center;
   }
+
   .perfil-tabs button {
     padding: 8px;
     font-size: 0.9rem;
     width: 100%;
     text-align: center;
   }
+
   .perfil-content {
     padding: 0.5rem;
   }
+
   .perfil-section label {
     font-size: 0.8rem;
   }
+
   .btn-save,
   .btn-danger,
   .btn-secure {

@@ -1,191 +1,126 @@
-/* Fondo degradado */
+/* ===== 1. Fondo General (Permite Scroll) ===== */
 .perfil-bg {
-  position: relative; /* Se crea un stacking context con z-index bajo */
-  z-index: 0;
   min-height: 100vh;
-  padding: 2rem 1rem 6rem 1rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 1rem;          /* Ajusta el padding si deseas más o menos margen interno */
+  background: #f4f4f4;    /* Color de fondo general */
+  overflow-y: auto;       /* Permitir scroll si es necesario */
+  /* Eliminamos display: flex; justify-content y align-items para permitir ancho completo */
 }
 
-/* Contenedor principal */
+/* ===== 2. Contenedor del Perfil (Se elimina la "cápsula" blanca) ===== */
 .perfil-container {
-  max-width: 700px;
   width: 100%;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  /* Eliminamos max-width, background, border-radius y box-shadow */
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  /* Reducimos el padding interno */
+  padding: 0;
+  text-align: left;       /* Alineamos a la izquierda */
   color: #333;
+  margin-top: 0;          /* Sin margen superior extra */
+  min-height: auto;
 }
 
-/* Tarjeta de Perfil */
-.perfil-card {
-  text-align: center;
-  margin-bottom: 1rem;
-}
+/* ===== 3. Encabezado y Avatar ===== */
 .perfil-header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 2rem; /* Ajusta el espacio debajo del encabezado */
 }
+
 .perfil-avatar {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  border: 3px solid #667eea;
-  margin-bottom: 10px;
+  border: 4px solid #007BFF;
   object-fit: cover;
+  background-color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
-.perfil-role {
-  font-size: 0.85rem;
+
+.perfil-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* ===== 4. Estilo del Formulario ===== */
+.perfil-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* Al no tener un contenedor centrado, los elementos ocuparán todo el ancho */
+  margin-top: 1rem;
+}
+
+/* Cada campo ocupa 48% en escritorio; en pantallas pequeñas ajustaremos a 100% */
+.perfil-form .input-group {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.perfil-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
   color: #555;
 }
 
-/* Pestañas */
-.perfil-tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #ddd;
-}
-.perfil-tabs button {
-  background: none;
-  border: none;
+.perfil-form input,
+.perfil-form select {
+  width: 100%;
   padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  font-size: 0.95rem;
+  transition: border 0.3s;
+}
+
+.perfil-form input:focus,
+.perfil-form select:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* Campo de foto ocupa toda la fila */
+.perfil-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: flex-start; /* Alineado a la izquierda */
+}
+
+.btn-save {
+  background: #4CAF50;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
   cursor: pointer;
   font-size: 1rem;
-  transition: color 0.3s;
-  position: relative;
-}
-.perfil-tabs .active {
-  font-weight: bold;
-  color: #667eea;
-  border-bottom: 2px solid #667eea;
-}
-
-/* Contenido */
-.perfil-content {
-  padding: 1rem;
-}
-.perfil-section h3 {
-  color: #667eea;
-  margin-top: 0;
-}
-.perfil-section label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #4b5563;
-  font-size: 0.9rem;
-}
-.perfil-section input[type="text"],
-.perfil-section input[type="email"],
-.perfil-section input[type="password"],
-.perfil-section select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
+  margin-top: 1rem;
 }
 
-/* Botones */
-.btn-save,
-.btn-danger,
-.btn-secure {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 0.5rem;
-}
-.btn-save {
-  background: #28a745;
-  color: white;
-}
 .btn-save:hover {
-  background: #218838;
-}
-.btn-danger {
-  background: #d32f2f;
-  color: white;
-}
-.btn-danger:hover {
-  background: #b71c1c;
-}
-.btn-secure {
-  background: #667eea;
-  color: white;
-}
-.btn-secure:hover {
-  background: #5a67d8;
+  background: #388E3C;
 }
 
-/* Lista de Caballos */
-.caballos-lista {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.caballo-item {
-  background: #f1f1f1;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  font-size: 0.9rem;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  .perfil-bg {
-    padding: 1rem 0 4rem 0;
-  }
-  .perfil-container {
-    margin: 0 1rem;
-    padding: 1rem;
-  }
-  .perfil-avatar {
-    width: 80px;
-    height: 80px;
-  }
-  .perfil-tabs {
+/* ===================== RESPONSIVIDAD ===================== */
+@media (max-width: 600px) {
+  .perfil-form {
     flex-direction: column;
-    align-items: stretch;
+    gap: 1rem;
   }
-  .perfil-tabs button {
+
+  /* Cada input ocupa el 100% */
+  .perfil-form .input-group {
     width: 100%;
-    text-align: center;
-    padding: 8px;
-    font-size: 0.9rem;
-    white-space: normal;
-    word-break: break-word;
-  }
-  .perfil-content {
-    padding: 0.5rem;
-  }
-  .perfil-section label {
-    font-size: 0.8rem;
-  }
-  .perfil-section input[type="text"],
-  .perfil-section input[type="email"],
-  .perfil-section input[type="password"],
-  .perfil-section select {
-    padding: 6px;
-    font-size: 0.8rem;
-  }
-  .btn-save,
-  .btn-danger,
-  .btn-secure {
-    padding: 8px;
-    font-size: 0.8rem;
   }
 }

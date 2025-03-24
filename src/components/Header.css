@@ -1,9 +1,9 @@
 /* src/components/Header.css */
 
 /* Contenedor principal del header */
-.header {
-  background-color: #1f2937; /* Fondo oscuro */
-  border-bottom: 1px solid #374151;
+.app-header {
+  background-color: #F6EACD; /* Nuevo fondo */
+  border-bottom: 1px solid #F6EACD;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,6 +19,11 @@
   font-weight: 700;
 }
 
+/* Si se usa imagen en lugar de texto, se puede definir su tamaño */
+.header-brand img {
+  height: 30px;
+}
+
 /* Acciones (bienvenida + botón) */
 .header-actions {
   display: flex;
@@ -29,7 +34,7 @@
 /* Texto de bienvenida */
 .welcome-text {
   font-size: 1rem;
-  color: #d1d5db;
+  color: #3C2012;
 }
 
 /* Botón de logout */
@@ -48,7 +53,7 @@
 }
 
 .logout-button:hover {
-  background-color: #4f46e5; /* un púrpura más vivo */
+  background-color: #4f46e5; /* Un púrpura más vivo */
   border-color: #4f46e5;
   color: #f3f4f6;
 }
@@ -59,9 +64,9 @@
   height: 18px;
 }
 
-/* ----- Media Queries para dispositivos móviles ----- */
+/* Media Queries para dispositivos móviles */
 @media (max-width: 600px) {
-  .header {
+  .app-header {
     flex-direction: column;
     padding: 0.5rem 1rem;
   }

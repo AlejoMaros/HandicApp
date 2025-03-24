@@ -1,6 +1,6 @@
-/* src/App.css */
+/* App.css */
 
-/* Reseteo y caja */
+/* Reset y box-sizing */
 * {
   margin: 0;
   padding: 0;
@@ -8,120 +8,43 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; /* O cambia a Montserrat si deseas */
   background-color: #f4f4f4;
 }
 
-/* Contenedor principal de la App */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #222;
-  color: white;
-  padding: 15px 30px;
-}
-
-.header-left h1 {
-  font-size: 1.5em;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.header-right button {
-  background-color: #d32f2f;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.header-right button:hover {
-  background-color: #b71c1c;
-}
-
-/* Navbar */
-.navbar {
-  background-color: #333;
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px 20px;
-}
-
-.navbar ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
-}
-
-.navbar ul li a:hover {
-  text-decoration: underline;
-}
-
-/* Contenedor para las páginas */
-.container {
-  flex: 1;
+/* Contenedor principal donde irá tu contenido/rutas */
+.main-content {
+  margin-top: 70px;
+  transition: margin-left 0.3s ease;
   padding: 20px;
-  text-align: center;
+  overflow-y: auto; /* Permite scroll vertical si es necesario */
+  max-height: calc(100vh - 70px); /* Ajusta la altura máxima */
 }
 
-/* Caja de información (Inicio) */
-.info-box {
-  background: white;
-  padding: 20px;
-  margin: 20px auto;
-  border-radius: 10px;
-  max-width: 800px;
-  text-align: left;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 280px;
+    max-width: calc(100vw - 280px);
+  }
 }
 
-/* Tarjetas resumen (Inicio) */
-.summary-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
+/* En pantallas grandes (desktop), reserva el espacio a la izquierda 
+   para el sidebar, que mide 280px */
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 280px; 
+  }
 }
 
-.summary-card {
-  background: linear-gradient(145deg, #f1c40f, #e67e22);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 180px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-  text-align: left;
+/* En dispositivos móviles, se permite scroll vertical */
+@media (max-width: 768px) {
+  .main-content {
+    overflow-y: auto;
+    max-height: 100vh;
+  }
 }
 
-.summary-card h4 {
-  margin-bottom: 10px;
-}
-
-.summary-card:hover {
-  transform: translateY(-5px);
-}
-
-/* Footer */
+/* Ejemplo de footer */
 .footer {
   background-color: #222;
   color: white;

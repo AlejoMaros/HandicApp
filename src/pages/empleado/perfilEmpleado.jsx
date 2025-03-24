@@ -1,264 +1,126 @@
-import React, { useEffect, useState } from "react";
-import { FaSignOutAlt, FaKey, FaShieldAlt } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import "./perfilEmpleado.css";
 
 const PerfilEmpleado = () => {
-  const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState("misDatos");
-
-  // Form para editar datos personales
-  const [editEmail, setEditEmail] = useState("");
-  const [editPhone, setEditPhone] = useState("");
-  const [editLocation, setEditLocation] = useState("");
-  const [editAvatar, setEditAvatar] = useState("");
+  const [nombre, setNombre] = useState("Juan");
+  const [apellido, setApellido] = useState("Pérez");
+  const [email, setEmail] = useState("juan.perez@ejemplo.com");
+  // Estado para el número de celular (sin el prefijo)
+  const [celular, setCelular] = useState("");
+  // Estado para el prefijo telefónico (se actualiza según el país)
+  const [prefijo, setPrefijo] = useState("");
+  // Estado para la imagen de perfil
+  const [foto, setFoto] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
   
-  // Para cambiar contraseña en 'Configuración'
-  const [newPassword, setNewPassword] = useState("");
-  // Para el 2FA (demo)
-  const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+  // Estados para la lista de países y el país seleccionado
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
 
+  // Uso de useEffect para obtener la lista de países automáticamente
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      let profileData = JSON.parse(localStorage.getItem("profileEmpleado"));
-      if (!profileData) {
-        profileData = {
-          username: storedUser.username || "Empleado",
-          role: storedUser.role || "empleado",
-          email: "usuario@ejemplo.com",
-          phone: "+123456789",
-          location: "Ciudad, País",
-          avatar: "",
-          horses: [
-            { name: "Bella", breed: "Árabe", age: 5 },
-            { name: "Luna", breed: "Cuarto de Milla", age: 8 },
-            { name: "Estrella", breed: "Andaluza", age: 6 },
-          ],
-        };
-        localStorage.setItem("profileEmpleado", JSON.stringify(profileData));
-      }
-
-      setUser(profileData);
-      setEditEmail(profileData.email);
-      setEditPhone(profileData.phone);
-      setEditLocation(profileData.location);
-      setEditAvatar(profileData.avatar || "");
-    } else {
-      window.location.href = "/login";
-    }
+    fetch("https://restcountries.com/v2/all?fields=name,callingCodes")
+      .then((res) => res.json())
+      .then((data) => {
+        const formattedCountries = data.map((country) => ({
+          name: country.name,
+          prefix:
+            country.callingCodes &&
+            country.callingCodes.length > 0 &&
+            country.callingCodes[0]
+              ? `+${country.callingCodes[0]}`
+              : ""
+        }));
+        setCountries(formattedCountries);
+        if (formattedCountries.length > 0) {
+          setSelectedCountry(formattedCountries[0].name);
+          setPrefijo(formattedCountries[0].prefix);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
   }, []);
 
-  if (!user) {
-    return (
-      <div className="perfil-bg">
-        <p style={{ color: "#fff", textAlign: "center" }}>Cargando perfil...</p>
-      </div>
-    );
-  }
-
-  /* =====================
-     GUARDAR DATOS
-  ====================== */
-  const handleGuardarDatosPersonales = () => {
-    const updated = {
-      ...user,
-      email: editEmail,
-      phone: editPhone,
-      location: editLocation,
-      avatar: editAvatar,
-    };
-    localStorage.setItem("profileEmpleado", JSON.stringify(updated));
-    setUser(updated);
-    alert("Datos personales guardados.");
+  // Al cambiar el país, se actualiza el prefijo telefónico
+  const handleCountryChange = (e) => {
+    const selected = e.target.value;
+    setSelectedCountry(selected);
+    const found = countries.find((c) => c.name === selected);
+    if (found) {
+      setPrefijo(found.prefix);
+    }
   };
 
-  const handleChangeAvatar = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      setEditAvatar(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleGuardarPassword = () => {
-    alert("Contraseña cambiada (demo). Nueva password: " + newPassword);
-    setNewPassword("");
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("profileEmpleado");
-    window.location.href = "/login";
-  };
-
-  /* =====================
-     2FA DEMO
-  ====================== */
-  const handleToggle2FA = () => {
-    setTwoFAEnabled(!twoFAEnabled);
-    alert(
-      !twoFAEnabled
-        ? "2FA Activado (demo)."
-        : "2FA Desactivado (demo)."
-    );
+  // Función para manejar la carga de imagen
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <div className="perfil-bg">
       <div className="perfil-container">
-        {/* Tarjeta de Perfil */}
-        <div className="perfil-card">
-          <div className="perfil-header">
-            <img
-              src={
-                user.avatar && user.avatar !== ""
-                  ? user.avatar
-                  : "https://via.placeholder.com/120"
-              }
-              alt="Perfil"
-              className="perfil-avatar"
-            />
-            <h2>{user.username}</h2>
-            <p className="perfil-role">{user.role}</p>
+        {/* Encabezado con Foto */}
+        <div className="perfil-header">
+          <img src={foto} alt="Perfil" className="perfil-avatar" />
+          <h2 className="perfil-nombre">{nombre} {apellido}</h2>
+        </div>
+
+        {/* Formulario de Datos (en 2 columnas) */}
+        <form className="perfil-form">
+          <div className="input-group">
+            <label>Nombre:</label>
+            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           </div>
-        </div>
 
-        {/* Pestañas de Sección */}
-        <div className="perfil-tabs">
-          <button
-            onClick={() => setActiveTab("misDatos")}
-            className={activeTab === "misDatos" ? "active" : ""}
-          >
-            Datos Personales
-          </button>
-          <button
-            onClick={() => setActiveTab("configuracion")}
-            className={activeTab === "configuracion" ? "active" : ""}
-          >
-            Configuración
-          </button>
-          <button
-            onClick={() => setActiveTab("misCaballos")}
-            className={activeTab === "misCaballos" ? "active" : ""}
-          >
-            Mis Caballos
-          </button>
-          <button
-            onClick={() => setActiveTab("seguridad")}
-            className={activeTab === "seguridad" ? "active" : ""}
-          >
-            Seguridad
-          </button>
-        </div>
+          <div className="input-group">
+            <label>Apellido:</label>
+            <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+          </div>
 
-        {/* Contenido de las Pestañas */}
-        <div className="perfil-content">
-          {/* ===== Datos Personales ===== */}
-          {activeTab === "misDatos" && (
-            <div className="perfil-section">
-              <h3>Información Personal</h3>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={editEmail}
-                  onChange={(e) => setEditEmail(e.target.value)}
-                />
-              </label>
-              <label>
-                Teléfono:
-                <input
-                  type="text"
-                  value={editPhone}
-                  onChange={(e) => setEditPhone(e.target.value)}
-                />
-              </label>
-              <label>
-                Ubicación:
-                <input
-                  type="text"
-                  value={editLocation}
-                  onChange={(e) => setEditLocation(e.target.value)}
-                />
-              </label>
-              <label>
-                Cambiar Avatar:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleChangeAvatar}
-                />
-              </label>
-              {editAvatar && (
-                <img
-                  src={editAvatar}
-                  alt="preview avatar"
-                  style={{ width: "80px", margin: "0.5rem" }}
-                />
-              )}
-              <button className="btn-save" onClick={handleGuardarDatosPersonales}>
-                Guardar
-              </button>
-            </div>
-          )}
+          <div className="input-group">
+            <label>Email:</label>
+            <input type="email" value={email} readOnly />
+          </div>
 
-          {/* ===== Configuración ===== */}
-          {activeTab === "configuracion" && (
-            <div className="perfil-section">
-              <h3>Configuración</h3>
-              <label>Cambiar Contraseña:</label>
-              <input
-                type="password"
-                placeholder="Nueva Contraseña"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <button className="btn-save" onClick={handleGuardarPassword}>
-                Guardar
-              </button>
+          {/* Desplegable de países */}
+          <div className="input-group">
+            <label>País:</label>
+            <select value={selectedCountry} onChange={handleCountryChange}>
+              {countries.map((c, index) => (
+                <option key={index} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              <label>Idioma:</label>
-              <select>
-                <option>Español</option>
-                <option>Inglés</option>
-                <option>Portugués</option>
-              </select>
-            </div>
-          )}
+          {/* Campo para Prefijo (lectura) */}
+          <div className="input-group">
+            <label>Prefijo:</label>
+            <input type="text" value={prefijo} readOnly />
+          </div>
 
-          {/* ===== Mis Caballos ===== */}
-          {activeTab === "misCaballos" && (
-            <div className="perfil-section">
-              <h3>Mis Caballos</h3>
-              {user.horses && user.horses.length > 0 ? (
-                <ul className="caballos-lista">
-                  {user.horses.map((horse, index) => (
-                    <li key={index} className="caballo-item">
-                      🐴 {horse.name} - {horse.breed} ({horse.age} años)
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No tienes caballos asignados.</p>
-              )}
-            </div>
-          )}
+          {/* Campo para Celular */}
+          <div className="input-group">
+            <label>Celular:</label>
+            <input type="text" value={celular} onChange={(e) => setCelular(e.target.value)} />
+          </div>
 
-          {/* ===== Seguridad ===== */}
-          {activeTab === "seguridad" && (
-            <div className="perfil-section">
-              <h3>Seguridad</h3>
-              <button className="btn-danger" onClick={handleLogout}>
-                <FaSignOutAlt /> Cerrar Sesión
-              </button>
-              <button className="btn-secure" onClick={handleToggle2FA}>
-                <FaShieldAlt /> {twoFAEnabled ? "Desactivar 2FA" : "Activar 2FA"}
-              </button>
-            </div>
-          )}
-        </div>
+          {/* Subir Foto (ocupa todo el ancho) */}
+          <div className="perfil-upload">
+            <label>Cambiar Foto:</label>
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+          </div>
+
+          <button className="btn-save">Guardar Cambios</button>
+        </form>
       </div>
     </div>
   );

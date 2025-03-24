@@ -167,7 +167,7 @@ const CalendarioEmpleado = () => {
   return (
     <div className="calendario-bg">
       <div className="calendario-container">
-        <h2 className="titulo">Calendario Empleado</h2>
+        <h2 className="titulo">Calendario</h2>
         <p className="subtitulo">
           Organiza aquí las revisiones, entrenamientos, competiciones y otros eventos.
         </p>

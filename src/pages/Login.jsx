@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import logo from "../assets/logo.png"; // Ajusta la ruta de tu logo
+import logo from "../assets/LogoPNG2.png"; 
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
@@ -9,7 +9,6 @@ const Login = ({ setUser }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Demo: usuarios hardcodeados
   const users = [
     { username: "propietario", password: "propietario123", role: "propietario" },
     { username: "empleado", password: "empleado123", role: "empleado" },
@@ -23,6 +22,7 @@ const Login = ({ setUser }) => {
     const userFound = users.find(
       (u) => u.username === trimmedUser && u.password === trimmedPass
     );
+
     if (userFound) {
       localStorage.setItem("user", JSON.stringify(userFound));
       setUser(userFound);
@@ -37,54 +37,49 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div className="login-page">
-      {/* Sección superior (Hero con wave) */}
-      <div className="login-hero">
-        <img src={logo} alt="HandicApp Logo" className="app-logo" />
-
-        {/* Wave */}
-        <div className="wave-container">
-          <svg
-            viewBox="0 0 1440 200"
-            preserveAspectRatio="none"
-            className="wave-svg"
-          >
-            <path
-              fill="#fff"
-              d="M0,160 C360,80 1080,240 1440,160 L1440,200 L0,200Z"
-            />
+    <div className="login-container">
+      <div className="left-section">
+        <div className="wave-bg">
+          <svg className="wave" viewBox="0 0 500 500" preserveAspectRatio="none">
+            <path d="M0,100 C150,200 350,0 500,100 L500,0 L0,0 Z" />
           </svg>
+        </div>
+        <div className="left-content">
+          <img src={logo} alt="HadicApp Logo" className="logo" />
         </div>
       </div>
 
-      {/* Tarjeta de login */}
-      <div className="login-card">
-        <h2 className="login-title">Iniciar Sesión</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Usuario</label>
+      <div className="right-section">
+        <div className="form-wrapper">
+          <h3 className="title">Bienvenido</h3>
+          <p className="subtitle">Inicia sesión en tu cuenta para continuar</p>
+          <form onSubmit={handleSubmit} className="login-form">
             <input
               type="text"
+              placeholder="Usuario"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-          </div>
-          <div className="form-group">
-            <label>Contraseña</label>
             <input
               type="password"
+              placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>
-
-          <button type="submit" className="login-button">
-            Ingresar
-          </button>
-          {error && <p className="error-message">{error}</p>}
-        </form>
+            <a href="#!" className="forgot-password">
+              ¿Olvidaste tu contraseña?
+            </a>
+            <button type="submit" className="login-button">
+              Ingresar
+            </button>
+            {error && <p className="error-message">{error}</p>}
+          </form>
+          <p className="signup">
+            ¿No tienes una cuenta? <a href="#!">Regístrate</a>
+          </p>
+        </div>
       </div>
     </div>
   );

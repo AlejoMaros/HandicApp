@@ -1,425 +1,283 @@
-import React, { useEffect, useState } from "react";
-import { FaPlus, FaEdit, FaTrash, FaClipboardList, FaSearch } from "react-icons/fa";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { List, Grid3x3, PlusCircle, Trash2, Edit, FileText, X } from "lucide-react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import "./caballosEmpleado.css";
 
-const CaballosEmpleado = () => {
-  // Lista de caballos
-  const [caballos, setCaballos] = useState([]);
+// Importa las imágenes de ejemplo y la imagen por defecto para caballo
+import caballo1 from "../../assets/caballo1.jpg";
+import caballo2 from "../../assets/caballo2.jpg";
+import caballo3 from "../../assets/caballo3.jpg";
+import defaultHorseImage from "../../assets/caballofoto.png";
 
-  // Para filtrar
-  const [filtro, setFiltro] = useState("");
+export default function CaballosEmpleado() {
+  const [view, setView] = useState("grid");
+  const [search, setSearch] = useState("");
+  const [horses, setHorses] = useState([
+    {
+      id: 1,
+      name: "Relámpago",
+      establecimiento: "Establo A",
+      propietario: "Juan Pérez",
+      sexo: "Macho",
+      edad: 5,
+      pelaje: "Negro",
+      sangre: "Sangre 1",
+      fechaNacimiento: "2018-05-10",
+      madre: "Madre 1",
+      padre: "Padre 1",
+      image: caballo1
+    },
+    {
+      id: 2,
+      name: "Tormenta",
+      establecimiento: "Establo B",
+      propietario: "Carlos López",
+      sexo: "Hembra",
+      edad: 7,
+      pelaje: "Blanco",
+      sangre: "Sangre 2",
+      fechaNacimiento: "2016-03-22",
+      madre: "Madre 2",
+      padre: "Padre 2",
+      image: caballo2
+    },
+    {
+      id: 3,
+      name: "Rayo",
+      establecimiento: "Establo C",
+      propietario: "Ana García",
+      sexo: "Macho",
+      edad: 4,
+      pelaje: "Marrón",
+      sangre: "Sangre 3",
+      fechaNacimiento: "2019-11-30",
+      madre: "Madre 3",
+      padre: "Padre 3",
+      image: caballo3
+    },
+  ]);
 
-  // Modal caballo (agregar/editar)
-  const [showHorseModal, setShowHorseModal] = useState(false);
-  const [editingHorseId, setEditingHorseId] = useState(null);
+  // Filtrar caballos según lo ingresado en el buscador (por nombre o propietario)
+  const filteredHorses = horses.filter((horse) =>
+    horse.name.toLowerCase().includes(search.toLowerCase()) ||
+    horse.propietario.toLowerCase().includes(search.toLowerCase())
+  );
 
-  // Modal logs
-  const [showLogModal, setShowLogModal] = useState(false);
-  const [selectedHorse, setSelectedHorse] = useState(null);
-
-  // Form Caballo
-  const [formHorse, setFormHorse] = useState({
-    id: null,
-    nombre: "",
+  // Estado para el modal y formulario de nuevo caballo
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newHorse, setNewHorse] = useState({
+    name: "",
+    establecimiento: "",
+    propietario: "",
+    sexo: "",
     edad: "",
-    raza: "",
-    estatus: "Entrenamiento", // Valor por defecto
-    fotoBase64: "", // Para la foto
-    logs: [],
+    pelaje: "",
+    sangre: "",
+    fechaNacimiento: "",
+    madre: "",
+    padre: "",
+    image: ""
   });
 
-  // Form Log
-  const [editingLogId, setEditingLogId] = useState(null); // si no es null => editando un log
-  const [logDate, setLogDate] = useState("");
-  const [logActividad, setLogActividad] = useState("");
-  const [logObservaciones, setLogObservaciones] = useState("");
-
-  // Cargar del localStorage al iniciar
-  useEffect(() => {
-    const data = localStorage.getItem("caballosData");
-    if (data) {
-      setCaballos(JSON.parse(data));
-    }
-  }, []);
-
-  // Guardar en localStorage cuando cambien
-  useEffect(() => {
-    localStorage.setItem("caballosData", JSON.stringify(caballos));
-  }, [caballos]);
-
-  /* ======================
-     FILTRAR caballos
-  ======================= */
-  const caballosFiltrados = caballos.filter((horse) => {
-    const texto = filtro.toLowerCase();
-    return (
-      horse.nombre.toLowerCase().includes(texto) ||
-      (horse.raza && horse.raza.toLowerCase().includes(texto))
-    );
-  });
-
-  /* ======================
-     MANEJO DE CABALLOS
-  ======================= */
-  // Abrir modal para agregar nuevo
-  const handleOpenAdd = () => {
-    setFormHorse({
-      id: null,
-      nombre: "",
-      edad: "",
-      raza: "",
-      estatus: "Entrenamiento",
-      fotoBase64: "",
-      logs: [],
-    });
-    setEditingHorseId(null);
-    setShowHorseModal(true);
-  };
-
-  // Abrir modal para editar
-  const handleEditHorse = (horse) => {
-    setFormHorse(horse);
-    setEditingHorseId(horse.id);
-    setShowHorseModal(true);
-  };
-
-  // Guardar caballo
-  const handleSaveHorse = (e) => {
-    e.preventDefault();
-    if (editingHorseId === null) {
-      // Agregar
-      const newHorse = { ...formHorse, id: Date.now() };
-      setCaballos([...caballos, newHorse]);
-    } else {
-      // Editar
-      const updated = caballos.map((c) =>
-        c.id === editingHorseId ? formHorse : c
-      );
-      setCaballos(updated);
-    }
-    setShowHorseModal(false);
-    setEditingHorseId(null);
-  };
-
-  // Eliminar caballo
-  const handleDeleteHorse = (id) => {
-    const updated = caballos.filter((c) => c.id !== id);
-    setCaballos(updated);
-  };
-
-  // Cambios en form Caballo
-  const handleHorseChange = (e) => {
-    const { name, value } = e.target;
-    setFormHorse({ ...formHorse, [name]: value });
-  };
-
-  // Manejar subida de foto
-  const handleFotoChange = async (e) => {
+  // Para mostrar vista previa de la imagen
+  const handleImageFileChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-    // Convertir a base64 en un demo real (no recomend. en prod. con archivos grandes)
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFormHorse({ ...formHorse, fotoBase64: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
-
-  /* ======================
-     MANEJO DE LOGS
-  ======================= */
-  // Abrir modal de logs
-  const handleOpenLogModal = (horse) => {
-    setSelectedHorse(horse);
-    // Reset form de log
-    setEditingLogId(null);
-    setLogDate("");
-    setLogActividad("");
-    setLogObservaciones("");
-    setShowLogModal(true);
-  };
-
-  // Guardar log (nuevo o editado)
-  const handleSaveLog = (e) => {
-    e.preventDefault();
-
-    // Si editingLogId es null => creando un nuevo log
-    if (editingLogId === null) {
-      const newLog = {
-        id: Date.now(),
-        fecha: logDate,
-        actividad: logActividad,
-        observaciones: logObservaciones,
+    if(file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewHorse((prev) => ({ ...prev, image: reader.result }));
       };
-      const updated = caballos.map((c) => {
-        if (c.id === selectedHorse.id) {
-          return { ...c, logs: [...c.logs, newLog] };
-        }
-        return c;
-      });
-      setCaballos(updated);
-    } else {
-      // Editar un log existente
-      const updated = caballos.map((c) => {
-        if (c.id === selectedHorse.id) {
-          const updatedLogs = c.logs.map((lg) =>
-            lg.id === editingLogId
-              ? {
-                  ...lg,
-                  fecha: logDate,
-                  actividad: logActividad,
-                  observaciones: logObservaciones,
-                }
-              : lg
-          );
-          return { ...c, logs: updatedLogs };
-        }
-        return c;
-      });
-      setCaballos(updated);
+      reader.readAsDataURL(file);
     }
-
-    setShowLogModal(false);
   };
 
-  // Manejar edición de log
-  const handleEditLog = (logItem) => {
-    setEditingLogId(logItem.id);
-    setLogDate(logItem.fecha);
-    setLogActividad(logItem.actividad);
-    setLogObservaciones(logItem.observaciones);
-  };
-
-  // Eliminar log
-  const handleDeleteLog = (logId) => {
-    const updated = caballos.map((c) => {
-      if (c.id === selectedHorse.id) {
-        const newLogs = c.logs.filter((lg) => lg.id !== logId);
-        return { ...c, logs: newLogs };
-      }
-      return c;
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Lista de Caballos", 10, 10);
+    const tableData = horses.map((horse) => [
+      horse.name,
+      horse.propietario,
+      horse.edad,
+      horse.pelaje,
+    ]);
+    doc.autoTable({
+      head: [["Nombre", "Propietario", "Edad", "Pelaje"]],
+      body: tableData,
     });
-    setCaballos(updated);
+    doc.save("caballos.pdf");
+  };
+
+  const handleDelete = (id) => {
+    if(window.confirm("¿Estás seguro de que quieres eliminar este caballo?")) {
+      setHorses(horses.filter((horse) => horse.id !== id));
+    }
+  };
+
+  const handleNewHorseChange = (e) => {
+    const { name, value } = e.target;
+    setNewHorse((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddHorse = (e) => {
+    e.preventDefault();
+    const newId = horses.length ? horses[horses.length - 1].id + 1 : 1;
+    setHorses([...horses, { ...newHorse, id: newId }]);
+    // Reinicia formulario
+    setNewHorse({
+      name: "",
+      establecimiento: "",
+      propietario: "",
+      sexo: "",
+      edad: "",
+      pelaje: "",
+      sangre: "",
+      fechaNacimiento: "",
+      madre: "",
+      padre: "",
+      image: ""
+    });
+    setIsModalOpen(false);
   };
 
   return (
-    <div className="caballos-empleado-bg">
-      <div className="caballos-empleado-container">
-        <h2 className="titulo">Gestión de Caballos</h2>
-        <p className="subtitulo">
-          Filtra, agrega y edita información de los caballos. Lleva registro de
-          sus actividades diarias.
-        </p>
-
-        {/* Barra de filtro */}
-        <div className="filtro-area">
-          <FaSearch className="icono-search" />
+    <div className="horse-manager-container">
+      <div className="horse-manager-header">
+        <button className="btn-add-horse" onClick={() => setIsModalOpen(true)}>
+          <PlusCircle className="icon" /> Agregar Caballo
+        </button>
+        <div className="search-container">
           <input
             type="text"
-            placeholder="Buscar por nombre o raza..."
-            value={filtro}
-            onChange={(e) => setFiltro(e.target.value)}
+            placeholder="Buscar ejemplar..."
+            className="search-input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+        <div className="view-buttons">
+          <button onClick={() => setView("list")} className="btn-list">
+            <List className="icon-small" /> Lista
+          </button>
+          <button onClick={() => setView("grid")} className="btn-grid">
+            <Grid3x3 className="icon-small" /> Grilla
+          </button>
+          <button onClick={exportToPDF} className="btn-export">
+            <FileText className="icon-small" /> PDF
+          </button>
+        </div>
+      </div>
 
-        {/* Botón Agregar */}
-        <button className="btn-agregar" onClick={handleOpenAdd}>
-          <FaPlus /> Agregar Caballo
-        </button>
-
-        {/* Tabla de caballos */}
-        <table className="tabla-caballos">
+      {view === "list" && (
+        <table className="horse-table">
           <thead>
             <tr>
-              <th>Foto</th>
+              <th>Imagen</th>
               <th>Nombre</th>
+              <th>Propietario</th>
               <th>Edad</th>
-              <th>Raza</th>
-              <th>Estatus</th>
+              <th>Pelaje</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {caballosFiltrados.map((horse) => (
+            {filteredHorses.map((horse) => (
               <tr key={horse.id}>
                 <td>
-                  {horse.fotoBase64 ? (
-                    <img
-                      src={horse.fotoBase64}
-                      alt={horse.nombre}
-                      className="img-horse"
-                    />
-                  ) : (
-                    <span style={{ fontSize: "0.8rem", color: "#aaa" }}>
-                      Sin Foto
-                    </span>
-                  )}
+                  <img
+                    src={horse.image ? horse.image : defaultHorseImage}
+                    alt={horse.name}
+                    className="horse-table-image"
+                  />
                 </td>
-                <td>{horse.nombre}</td>
+                <td className="horse-name">{horse.name}</td>
+                <td>{horse.propietario}</td>
                 <td>{horse.edad}</td>
-                <td>{horse.raza}</td>
-                <td>{horse.estatus}</td>
+                <td>{horse.pelaje}</td>
                 <td>
-                  <button className="btn-edit" onClick={() => handleEditHorse(horse)}>
-                    <FaEdit /> Editar
+                  <button onClick={() => handleDelete(horse.id)} className="btn-delete">
+                    <Trash2 className="icon-small" />
                   </button>
-                  <button className="btn-log" onClick={() => handleOpenLogModal(horse)}>
-                    <FaClipboardList /> Logs
-                  </button>
-                  <button className="btn-delete" onClick={() => handleDeleteHorse(horse.id)}>
-                    <FaTrash /> Eliminar
+                  <button className="btn-edit">
+                    <Edit className="icon-small" />
                   </button>
                 </td>
               </tr>
             ))}
-            {caballosFiltrados.length === 0 && (
-              <tr>
-                <td colSpan="6">No se encontraron caballos.</td>
-              </tr>
-            )}
           </tbody>
         </table>
-      </div>
+      )}
 
-      {/* Modal Caballo */}
-      {showHorseModal && (
-        <div className="modal-overlay" onClick={() => setShowHorseModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{editingHorseId === null ? "Agregar Caballo" : "Editar Caballo"}</h3>
-            <form className="form-caballo" onSubmit={handleSaveHorse}>
-              <label>
-                Nombre:
-                <input
-                  type="text"
-                  name="nombre"
-                  value={formHorse.nombre}
-                  onChange={handleHorseChange}
-                  required
-                />
-              </label>
-              <label>
-                Edad:
-                <input
-                  type="number"
-                  name="edad"
-                  value={formHorse.edad}
-                  onChange={handleHorseChange}
-                />
-              </label>
-              <label>
-                Raza:
-                <input
-                  type="text"
-                  name="raza"
-                  value={formHorse.raza}
-                  onChange={handleHorseChange}
-                />
-              </label>
-              <label>
-                Estatus:
-                <select
-                  name="estatus"
-                  value={formHorse.estatus}
-                  onChange={handleHorseChange}
-                >
-                  <option value="Entrenamiento">Entrenamiento</option>
-                  <option value="Descanso">Descanso</option>
-                  <option value="Lesionado">Lesionado</option>
-                </select>
-              </label>
-              <label>
-                Foto:
-                <input type="file" accept="image/*" onChange={handleFotoChange} />
-              </label>
-              {formHorse.fotoBase64 && (
-                <img
-                  src={formHorse.fotoBase64}
-                  alt="preview"
-                  style={{ width: "100px", marginTop: "0.5rem" }}
-                />
-              )}
-              <button type="submit" className="btn-save">
-                Guardar
-              </button>
-            </form>
-          </div>
+      {view === "grid" && (
+        <div className="horse-grid">
+          {filteredHorses.map((horse) => (
+            <Link key={horse.id} to={`/caballoEmpleadoDetalle/${horse.id}`} className="horse-card" style={{ textDecoration: "none" }}>
+              <img
+                src={horse.image ? horse.image : defaultHorseImage}
+                alt={horse.name}
+                className="horse-card-image"
+              />
+              <div className="horse-card-content">
+                <h3>{horse.name}</h3>
+                <div className="horse-card-info">
+                  <div className="left-col">
+                    <p><strong>Establecimiento:</strong> {horse.establecimiento}</p>
+                    <p><strong>Propietario:</strong> {horse.propietario}</p>
+                  </div>
+                  <div className="right-col">
+                    <p><strong>Sexo:</strong> {horse.sexo}</p>
+                    <p><strong>Edad:</strong> {horse.edad}</p>
+                    <p><strong>Pelaje:</strong> {horse.pelaje}</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       )}
 
-      {/* Modal Logs */}
-      {showLogModal && selectedHorse && (
-        <div className="modal-overlay" onClick={() => setShowLogModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Registros de {selectedHorse.nombre}</h3>
-            <form className="form-log" onSubmit={handleSaveLog}>
-              <label>
-                Fecha:
-                <input
-                  type="date"
-                  value={logDate}
-                  onChange={(e) => setLogDate(e.target.value)}
-                  required
-                />
-              </label>
-              <label>
-                Actividad:
-                <input
-                  type="text"
-                  value={logActividad}
-                  onChange={(e) => setLogActividad(e.target.value)}
-                  required
-                />
-              </label>
-              <label>
-                Observaciones:
-                <textarea
-                  rows="3"
-                  value={logObservaciones}
-                  onChange={(e) => setLogObservaciones(e.target.value)}
-                />
-              </label>
-              <button type="submit" className="btn-save">
-                {editingLogId === null ? "Agregar Log" : "Guardar Cambios"}
+      {/* Modal para agregar nuevo caballo */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-header">
+              <span>Agregar Nuevo Ejemplar</span>
+              <button onClick={() => setIsModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                <X className="icon-small" />
               </button>
+            </div>
+            <form onSubmit={handleAddHorse} className="modal-body">
+              <input type="text" name="name" placeholder="NOMBRE" value={newHorse.name} onChange={handleNewHorseChange} required />
+              <input type="text" name="establecimiento" placeholder="ESTABLECIMIENTO" value={newHorse.establecimiento} onChange={handleNewHorseChange} required />
+              <input type="text" name="propietario" placeholder="PROPIETARIO" value={newHorse.propietario} onChange={handleNewHorseChange} required />
+              <input type="text" name="sexo" placeholder="SEXO" value={newHorse.sexo} onChange={handleNewHorseChange} required />
+              <input type="number" name="edad" placeholder="EDAD" value={newHorse.edad} onChange={handleNewHorseChange} required />
+              <input type="text" name="pelaje" placeholder="PELAJE" value={newHorse.pelaje} onChange={handleNewHorseChange} required />
+              <input type="text" name="sangre" placeholder="SANGRE" value={newHorse.sangre} onChange={handleNewHorseChange} required />
+              <input type="date" name="fechaNacimiento" placeholder="FECHA NACIMIENTO" value={newHorse.fechaNacimiento} onChange={handleNewHorseChange} required />
+              <input type="text" name="madre" placeholder="MADRE" value={newHorse.madre} onChange={handleNewHorseChange} required />
+              <input type="text" name="padre" placeholder="PADRE" value={newHorse.padre} onChange={handleNewHorseChange} required />
+              {/* Campo para cargar imagen con vista previa */}
+              <div className="image-upload">
+                <label className="upload-label">Cargar Imagen</label>
+                <input type="file" accept="image/*" onChange={handleImageFileChange} />
+                {newHorse.image && (
+                  <img src={newHorse.image} alt="Vista previa" className="image-preview" />
+                )}
+              </div>
+              <div className="modal-buttons">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-submit">
+                  Agregar
+                </button>
+              </div>
             </form>
-
-            {/* Listado de logs */}
-            {selectedHorse.logs && selectedHorse.logs.length > 0 ? (
-              <ul className="lista-logs">
-                {selectedHorse.logs.map((lg) => (
-                  <li key={lg.id}>
-                    <strong>{lg.fecha}:</strong> {lg.actividad}
-                    {lg.observaciones && ` | Obs: ${lg.observaciones}`}
-                    <div className="log-buttons">
-                      <button
-                        className="btn-edit"
-                        onClick={() => {
-                          setEditingLogId(lg.id);
-                          setLogDate(lg.fecha);
-                          setLogActividad(lg.actividad);
-                          setLogObservaciones(lg.observaciones || "");
-                        }}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        className="btn-delete"
-                        onClick={() => handleDeleteLog(lg.id)}
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No hay registros para este caballo.</p>
-            )}
           </div>
         </div>
       )}
     </div>
   );
-};
-
-export default CaballosEmpleado;
+}
